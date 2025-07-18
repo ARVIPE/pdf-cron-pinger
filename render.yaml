@@ -1,0 +1,6 @@
+services:
+  - type: worker
+    name: pdf-cron-pinger
+    env: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
