@@ -21,3 +21,8 @@ def cron_loop():
 
 # Lanzar hilo del cron
 threading.Thread(target=cron_loop, daemon=True).start()
+
+if __name__ == "__main__":
+    import os
+    port = int(os.environ.get("PORT", 10000))
+    app.run(host="0.0.0.0", port=port)
