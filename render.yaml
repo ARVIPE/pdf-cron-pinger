@@ -1,6 +1,9 @@
 services:
-  - type: worker
-    name: pdf-cron-pinger
+  - type: web
+    name: pdf-cron-web
     env: docker
     plan: free
     dockerfilePath: ./Dockerfile
+    envVars:
+      - key: PORT
+        value: 10000

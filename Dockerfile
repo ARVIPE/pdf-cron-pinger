@@ -1,20 +1,9 @@
-FROM debian:bullseye-slim
+FROM python:3.12-slim
 
-# Instalar dependencias
-RUN apt-get update && \
-    apt-get install -y curl cron && \
-    apt-get clean
+WORKDIR /app
+COPY . .
 
-# Copiar el script de ping y el cronjob
-COPY ping.sh /usr/local/bin/ping.sh
-COPY cronjob /etc/cron.d/ping-cron
+RUN pip install flask && chmod +x ping.sh
 
-# Dar permisos de ejecución
-RUN chmod +x /usr/local/bin/ping.sh && \
-    chmod 0644 /etc/cron.d/ping-cron && \
-    crontab /etc/cron.d/ping-cron
-
-# Crear log file
-RUN touch /var/log/cron.log
-
-CMD cron && tail -f /var/log/cron.log
+EXPOSE 10000
+CMD ["python", "app.py"]
